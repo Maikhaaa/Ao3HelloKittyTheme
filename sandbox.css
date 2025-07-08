@@ -1,0 +1,922 @@
+/*
+
+			AO3 Hello Kitty Skin! - dark mode
+
+	
+	Original stylesheet authored by e_o_n_s.
+	Original source:
+		https://archiveofourown.org/works/56749162
+		https://pastebin.com/raw/LcEmVpbj
+
+  	Refactor, semantic structure, and all improvements by Maikha.
+	Licensed under MIT (see LICENSE file for details).
+*/
+
+/*
+			================================
+				CSS STYLE GUIDE	
+			================================
+
+PROPERTY ORDER (Inside a Rule)
+	1. Position & Display
+	2. Box Model
+  	3. Typography
+	4. Visual Style (colors, borders, shadows)
+  	5. Misc (cursor, transitions)
+	6. Vendor Prefixes (e.g. -webkit-) — always last
+
+SELECTOR STRUCTURE
+	- Tag, then .class or #id
+	- Children follow parent (e.g. nav, nav ul, nav ul li)
+	- Hover effects come before ::after
+	- ::before comes before the relative block
+	- ::after comes after the relative block
+	- Contextual rules (e.g. nav ~ section) are after all base rules
+
+COLOR STRATEGY
+	- All colors/images/fonts stored as variables in :root
+	- No raw hex in selectors
+	- Semantic naming
+
+UNIT USAGE
+	- px for precision (1px borders, icons)
+	- rem for scalable spacing/layout
+	- em sparingly, only where context-relative scaling is intended
+  	- % / vw / vh for responsive layout only
+
+CLASS GROUPING
+	- Group selectors by class
+	- Base class styles come first
+	- Contextual overrides (e.g. footer .comment) go after base
+
+VENDOR PREFIXES
+	- Always at the bottom of rule blocks
+	- Treated as experimental or fallback
+	- Example:
+		background-clip: text;
+      		-webkit-background-clip: text;
+*/
+
+
+
+
+
+
+/* all of the images and colors used here */
+:root {
+	/* toggles! */
+	--sticky-navbar:	1;
+	
+	--image-bow-bg:		url(https://i.imgur.com/55kVUO4.png);
+	--image-heart-bg:	url(https://i.imgur.com/5m7oHEJ.jpeg);
+	--image-kitty-bg:	url(https://i.imgur.com/G2CGQBx.jpeg);
+	--image-pink-bg:	url(https://i.imgur.com/wLtn9Zl.png);
+	
+	--image-bow:		url(https://imgur.com/ieRk9Po);
+	--image-cute-bow:	url(https://i.imgur.com/NYg2Rfm.png);
+	--image-hello-kitty:	url(https://i.imgur.com/1DvzPg5.jpeg);
+	--image-kitty:		url(https://i.imgur.com/LayswRW.png);
+	--image-plushie1-front:	url(https://i.imgur.com/XBkjMAt.png);
+	--image-plushie1-back:	url(https://i.imgur.com/2LewaQS.png);
+	--image-plushie2-front:	url(https://i.imgur.com/bKDUuqx.png);
+	--image-plushie2-back:	url(https://i.imgur.com/4E1BZOz.png);
+	--image-stars:		url(https://i.imgur.com/s6oi2kO.gif);
+	--image-pfp-border: 	url(https://i.imgur.com/IbCiDUK.png);
+
+	/*--color-bg:		linear-gradient(to right, black, #170713); */
+	/*--color-bg:		linear-gradient(to right, black, #170713 33%); */
+	/*--color-bg:		linear-gradient(to right, black 33%, #170713); */
+	/*--color-bg:		#170713; */
+	--color-bg:		black;
+
+	--color-button-bg:	#170713;
+	--color-button-bg-alt:	white;
+	
+	--color-comment-bg:	black;
+	--color-comment-bg-alt:	#170713;
+
+	--color-light-salmon:	#ee9597cc;
+	--color-salmon:		#f08080;
+	--color-light-carbon:	#cccccc;
+	--color-white:		#fef8fe;
+
+	--color-tag-form:	#170713;	
+
+	--color-pink:		#ff9eba;
+	--color-light-pink:	#f7c1d9;
+	--color-black:		#000000;
+	
+	--color-border:		#ff9eba;
+
+	--color-shadow: 	#a35272b0;
+	--color-box-shadow: 	#36091aa0;
+
+	--color-title:		#fef8fe;
+	--color-author:		#611459;
+	
+	--color-text:		#ff9eba;
+	--color-text-alt:	black;
+
+	--border:		1px solid #ffb2b2;
+
+	--border-radius:	10px;
+
+	--font-default: 	Verdana, Geneva, sans-serif;
+	--font-title:		Cursive, New Times Roman;
+
+	/* some special accent characters that sometimes appear on the site */
+	--char-heart:		" ♡";
+	--char-favorite;	"₊✩‧₊˚౨ৎ˚₊✩‧₊";
+}
+
+body{
+	background-color: black;
+	color: var(--color-text);
+}
+
+body, h1, h3, .heading{
+	font-family: var(--font-default);
+}
+
+/* ===== hide the default ao3 logo ===== */
+
+.logo{
+	display: none;
+}
+
+/* ===== plushie on the ao3 logo ===== */
+
+.index .skins .icon {
+	background-image: var(--image-plushie-front);
+	background-size: cover;
+}
+
+/* ===== header navigator style ===== */
+
+#header {
+	/* toggle workaround... */
+	position: static;
+	top: calc(0px * var(--sticky-navbar));
+	z-index: var(--sticky-navbar);
+	padding: 1rem;
+	padding-top: .5rem;
+	background-image: var(--image-heart-bg);
+	box-shadow: 0 5px 15px var(--color-shadow);
+}
+
+#header {
+	display: block; /* fallback */
+}
+
+#header h1 a:hover{
+	color: var(--color-light-carbon);
+}
+
+#header h1 .landmark {
+	display: inline;
+	font-size: 10rem;
+	color: var(--color-text);
+	height: auto;
+	width: auto;
+}
+
+/* ===== logo ===== */
+/* plushie icon on header text */
+#header .heading a:after {
+	content: var(--image-plushie1-front);
+}
+
+#header .heading a {
+	color: black;
+	text-shadow: -2px 3px 0 var(--color-light-pink);
+	font-style: italic;
+	font-size: 2.314em;
+	line-height: 1.75em;
+}
+
+#header .heading a:hover::after {
+	content: var(--image-plushie1-back);
+}
+
+/* ===== plushie icon next to username ===== */
+
+.home .header h2:after {
+	content: var(--image-plushie2-front);
+}
+
+.home .header h2:hover::after {
+	content: var(--image-plushie2-back);
+}
+
+
+
+.actions input {
+	background: black;
+	box-shadow: none;
+}
+
+/* ===== search bar ===== */
+
+#header ul.primary {
+	background-image: var(--image-kitty-bg);
+	background-size: 500px;
+}
+
+#header .primary {
+	border-radius: 10px;
+	background-color: black;
+	color: var(--color-white);
+	box-shadow: inset 0 -6px 10px var(--color-shadow);
+}
+
+#header .primary a {
+	border-radius: 10px;
+	background-color: black;
+	color: var(--color-white);
+}
+
+#header .primary .menu a {
+	color: #111;
+	background: pink;
+	padding: .75em .5em .5em;
+}
+
+/* ===== buttons ===== */
+
+.actions input,
+.actions a:link,
+.browse a,
+#header .actions a {
+	padding: 5px 9px;
+	
+	background-image: var(--image-kitty-bg);
+	background-color: var(--color-button-bg);
+	color: var(--color-text);
+	border: 1px solid var(--color-border);
+	border-color: var(--color-text);
+	border-radius: 50px;
+	
+	box-shadow: inset 0 -6px 5px var(--color-shadow), 0 2px 5px var(--color-box-shadow);
+	
+	background-blend-mode: multiply;
+}
+
+.actions input:hover,
+.actions a:link:hover,
+.browse a:hover,
+#header .actions a:hover {
+	background-image: var(--image-kitty-bg);
+	background: var(--color-button-bg-alt);
+	color: var(--color-text-alt);
+	box-shadow: none;
+}
+
+/* ===== tags ===== */
+
+.tags a.tag {
+	white-space: nowrap;
+	text-decoration: none;
+	line-height: 2.8;
+	
+	padding: 5px 9px;
+	
+	background-color: var(--color-button-bg);
+	color: var(--color-text);
+	border: 1px solid var(--color-border);
+	border-radius: 50px;
+
+	box-shadow: inset 0 -6px 5px var(--color-shadow), 0 2px 5px var(--color-box-shadow);
+}
+
+.tags a.tag:hover {
+	background-image: var(--image-kitty-bg);
+	background-size: 500px;
+	
+	background-color: white;
+
+	color: var(--color-text-alt);
+	text-shadow: 0 0 20px var(--color-text);
+	box-shadow: none;
+	
+	background-blend-mode: multiply;
+}
+
+.tags a.tag::after {
+	content: var(--char-heart);
+	margin-right: 2px;
+	-webkit-text-stroke: 1.25px var(--color-text);
+}
+
+.tags a.tag:hover::after {
+	color: var(--color-text-alt);
+	-webkit-text-stroke: 1.25px var(--color-text-alt);
+}
+
+/* ===== tag form ===== */
+
+.wrapper dl {
+	padding: 1.286em .75em;
+	border: var(--border);
+	border-radius: var(--border-radius);
+	background-image: var(--image-bow-bg);
+	background-size: 300px;
+	background-color: var(--color-tag-form);
+	background-blend-mode: overlay;
+}
+
+/* ===== dropdown menu ===== */
+
+#header .dropdown:hover a {
+	background-color: var(--color-white) ;
+}
+
+#header .dropdown a:hover {
+	background-image: var(--image-kitty-bg);
+}
+
+/* dirty fix */
+#outer #header .dropdown-menu {
+	background-color: #f8e0f0;
+	box-shadow: 0px 2px 5px  var(--color-shadow);
+	border: 1px solid var(--color-light-salmon);
+	border-radius: 0 0 var(--border-radius) var(--border-radius);
+}
+
+#header .dropdown-menu li{
+	text-shadow: 0px 1px 0 var(--color-white);
+}
+
+#header .dropdown-menu li:nth-child(odd) a {
+	background-color: #f8e0f0;
+	color: #700;
+}
+
+#header .dropdown-menu li:nth-child(even) a {
+	background-color: var(--color-white) ;
+	color: #a00;
+}
+
+#header .dropdopwn-menu li:hover a {
+	background-image: var(--image-kitty-bg);
+}
+
+/* ===== main title ===== */
+
+h2.title {
+	font-family: var(--font-title);
+	font-weight: bold;
+
+	color: var(--color-title);
+	border: 1px solid white;
+}
+
+.title a {
+	color: var(--color-text);
+}
+
+a[rel=author]{
+	color: var(--color-author);
+}
+
+/* ===== main text body ===== */
+
+#main {
+	font-size: .875em;
+	line-height: 1.2;
+	margin: auto;
+	background: var(--color-bg);
+	min-height: 450px;
+}
+
+#header .user a:after,{
+	content: var(--char-heart);
+}
+
+#header .user a {
+	background: linear-gradient(to right, #fafaf2, #fce9eb, #ffe2e3);
+	color: black;
+	text-decoration: none;
+	padding: 5px 9px;
+	border: 1.6px solid #fbc4db;
+	border-radius: 10px;
+}
+
+#header .user a:after {
+	content: var(--char-heart);
+}
+
+#header .menu li {
+	border-bottom: 1px solid transparent;
+	margin: 0 .25rem;
+	text-align: left;
+}
+
+#header .menu {
+	background: transparent;
+	background-size: contain;
+	padding: .25rem;
+	position: absolute;
+	width: 20rem;
+	box-shadow: none;
+}
+
+form dt {
+	padding: .5rem;
+	border: none;
+}
+
+form dt label{
+	font-weight: bold;
+}
+
+li.blurb,
+.blurb .blurb {
+	display: block;
+	overflow: visible;
+	position: relative;
+	clear: left;
+	padding: .429em .75em;
+	border-radius: var(--border-radius);
+	background-color: white;
+	border: 2px solid var(--color-light-pink);
+}
+
+.autocomplete input,
+.autocomplete .dropdown ul li {
+	display: block;
+	border: 1px solid #efd1d1;
+	min-width: 10em;
+}
+
+
+textarea {
+	font: 100% lucida grande, lucida sans unicode, Verdana, Helvetica, sans-serif, gnu unifont;
+	width: 100%;
+	border: 1px solid #ffd4e5;
+	box-shadow: inset 0 1px 4px 0px #ff99b58f;
+}
+
+.draft {
+	border: 2px dashed var(--color-white);
+	padding: .643rem;
+	border-radius: .5rem;
+}
+
+/*
+.own,
+.draft,
+.draft .wrapper,
+.unread,
+.child,
+.unwrangled,
+.unreviewed {
+	background: inherit;
+	opacity: .95;
+}
+*/
+
+.bookmark .user {
+	background-color: var(--color-light-salmon);
+	box-shadow: 5px 5px 5px  var(--color-light-carbon);
+}
+
+.bookmark .user:nth-child(odd) {
+	background-color: #efd1d1;
+	background-position: center;
+	background-size: 16rem; 
+	background-blend-mode: overlay;
+}
+
+.bookmark .user:nth-child(even) {
+	background-color: #fee6ee;
+}
+
+#greeting img.icon {
+	height: 50px;
+	width: 50px;
+	background-size: 100%;
+}
+
+#greeting .icon {
+	border: 1px solid #ffb2b2;
+}
+
+#dashboard.own {
+	opacity: 1;
+	background: 0 0;
+	border-top: 1vw solid var(--color-black);
+	border-bottom: 1vw solid var(--color-black);
+	border-radius: var(--border-radius);
+}
+
+ 
+
+dl.index dd {
+	width: auto;
+	margin: 0 .25em .643em 2.5em;
+	padding: .375em .15em .15em;
+	float: none;
+	clear: right;
+	overflow: visible;
+	background: floralwhite;
+}
+
+form.filters {
+	width: 23%;
+	float: right;
+	background-color: var(--color-background);
+	border: 2px solid #efd1d1;
+}
+
+.bookmark div.user {
+	clear: right;
+	background: var(--color-white);
+	box-sizing: border-box;
+	border-radius: var(--border-radius);
+}
+
+.bookmark .user {
+	border: 10px double white;
+	margin-top: .643em;
+	padding: .429em .75em;
+	overflow: hidden;
+	background: inherit;
+}
+
+.splash .favorite::after {
+	content: var(--char-favorite);
+	display: flex;
+	justify-content: center;
+	align-items: center;
+}
+
+#greeting::before {
+	content: "";
+
+	display: inline-block;
+	position: relative;
+	left: 38px;
+	bottom: -38px;
+	
+	width: 20px;
+	height: 20px;
+
+	background-image: var(--image-stars);
+	background-size: 20px 20px;
+}
+
+#greeting p.icon {
+	float: right;
+	
+	height: auto;
+	width: auto;
+	padding: .429em .125em 0;
+	
+	line-height: 1;
+}
+
+#greeting::after {
+	content: "";
+	
+	display: inline-block;
+	position: relative;
+	left: 54px;
+	top: 3px;
+
+	width: 25px;
+	height: 20px;
+
+	background-image: var(--image-bow);
+	background-size: 25px 20px;
+}
+
+
+
+.splash .module h3:after {
+	content: var(--char-heart);
+	font-style: normal;
+}
+
+
+
+.dashboard .own,
+.comment span.unreviewed {
+	background-color: #fefefed1;
+}
+
+
+/*
+fieldset,
+form dl,
+dd.hideme,
+form blockquote.userstuff {
+	display: block;
+	border: 2px solid #f3efec;
+	margin: .643em;
+	padding: .643em;
+	box-shadow: inset 1px 0 5px #f6c2d8;
+}
+*/
+
+
+.listbox .index {
+	background-image: var(--image-bow-bg);
+	background-color: var(--color-tag-form);
+	clear: right;
+	padding: .643em;
+	box-shadow: none;
+	background-blend-mode: overlay;
+}
+
+.listbox li.blurb,
+.listbox .landmark.heading,
+.listbox .tags .listbox,
+.listbox .lots li,
+.listbox .all li {
+	display: block;
+	border: 2px dotted #ffe1ea;
+}
+
+li.blurb,
+.blurb .blurb {
+	display: block;
+	position: relative;
+	clear: left;
+	padding: .429em .75em;
+	overflow: visible;
+	border-radius: var(--border-radius);
+	background-color: #fff;
+}
+
+/* .listbox,
+fieldset fieldset.listbox {
+	clear: right;
+	background: linear-gradient(to right, #fefefe, #fceff0, #ffe0e9);
+	margin: .643em auto;
+	overflow: hidden;
+	box-shadow: 0px 3px 6px rgba(255, 192, 203, 0.2);
+	border: 3px solid #efd1d1;
+}
+*/
+
+.thread .even {
+	background-color: #fdf5f2;
+	margin: 0;
+}
+
+.reading h4.viewed {
+	background-color: #ffdfdf;
+}
+
+p.muted.notice {
+	display: none;
+}
+
+/* ===== splash  ===== */
+
+.splash .favorite li:nth-of-type(odd) a {
+	background-color: #efd2d5b3;
+	color: rgba(0, 0, 0, 0.8);
+}
+
+.splash .favorite li:nth-of-type(odd) a:hover,
+.splash .favorite li:nth-of-type(odd) a:focus {
+	background-color: #de081a;
+	color: var(--color-white);
+}
+
+.splash .module h3 {
+	border-bottom: 1px solid #f7c3d8;
+	color: black;
+	font-size: 1.714em;
+	text-shadow: -1px 0px 0px var(--color-light-pink);
+	letter-spacing: .03em;
+	-webkit-text-stroke: 0.25px #efd1d1;
+	font-style: oblique;
+}
+
+/* ===== pfp border ===== */
+
+.home .primary .icon::after {
+	content: "";
+	display: inline-block;
+	position: absolute;
+	left: -10.5px;
+	top: -10.5px;
+	width: 120px;
+	height: 120px;
+	background-image: var(--image-pfp-border);
+	background-size: 120px 120px;
+}
+
+/* dashboard ???*/
+
+#dashboard .current {
+	background-color: #a00;
+	color: var(--color-text);
+}
+
+.dashboard fieldset {
+	clear: right;
+	background: linear-gradient(to right, var(--color-white), var(--color-light-pink));
+	background-color: red;
+}
+
+#dashboard a:hover {
+	font-weight: 570;
+	
+	background-image: var(--image-kitty-bg);
+	background-size: 500px;
+	background-color: var(--color-pink);
+	color: white;
+	text-shadow: 1px 1px 2px var(--color-white);
+	
+	background-blend-mode: hard-light;
+	-webkit-text-stroke: .25px var(--color-white);
+}
+
+/* ===== kudos ===== */
+
+.kudos a:link{
+	color: var(--color-text);
+}
+
+/* ===== your comment field ===== */
+
+.comment fieldset {
+	margin: 0;
+	left: 0;
+	padding: .5rem;
+	background-image: var(--image-kitty);
+	background-size: 8rem;
+	background-color: var(--color-comment-bg-alt);
+	border-radius: var(--border-radius);
+	box-shadow: 0 5px 5px var(--color-shadow);
+	background-blend-mode: overlay;
+}
+
+.comment fieldset dl {
+	border-radius: 10px;
+	background: black;
+}
+
+.comment fieldset textarea{
+	margin-right: 10px;
+	background-color: var(--color-comment-bg);
+	color: var(--color-text);
+	padding: .5rem;
+	border-radius: 10px;
+}
+
+/* ===== comments ===== */
+
+div.comment,
+li.comment {
+	position: relative;
+	border-radius: var(--border-radius);
+	border: none;
+	overflow: visible;
+	background-color: var(--color-black);
+	text-align: start;
+}
+
+div.comment:nth-child(even),
+li.comment:nth-child(even) {
+	background-color: var(--color-comment-bg-alt);
+}
+
+.comment h4.byline {
+	background-image: var(--image-pink-bg);
+	padding: .25rem .5rem .35rem 108px;
+	margin: 0 auto -.25rem;
+	background-size: auto;
+}
+
+.comment > div.icon {
+	border-bottom-color: pink;
+}
+
+.comment .icon .visitor {
+	display: block;
+	background-image: var(--image-hello-kitty);
+	background-size: contain;
+}
+
+/* ===== footnote ===== */
+
+#footer {
+	background-image: var(--image-kitty-bg);
+}
+
+#footer{
+	font-weight: 570;
+	background-image: var(--image-kitty-bg);
+	background-size: 500px;
+	color: var(--color-text);
+	text-shadow: 0 0 10px var(--color-shadow);
+	-webkit-text-stroke: .30px var(--color-white);
+}
+
+#footer ul {
+	background: var(--color-bg);
+}
+
+#footer ul.menu {
+	background: none;
+}
+
+#footer .heading:after {
+	content: var(--image-cute-bow);
+}
+
+/* ===== some fixes on the main page ===== */
+
+#new_work_search fieldset:first-of-type .submit {
+	padding-top: 0;
+}
+
+.edit_external_author ul ul {
+	margin-left: 2.75rem;
+}
+
+/* While implementing AO3-5987 it was suggested we move to non-JS share buttons.
+ * These are statically styled with CSS instead.
+ *
+ * Sourced from: https://sharingbuttons.io/
+ * See: https://github.com/otwcode/otwarchive/pull/3874#pullrequestreview-460459176
+ */
+
+a.resp-sharing-button__link,
+.resp-sharing-button__icon {
+	display: inline-block;
+}
+
+a.resp-sharing-button__link,
+a.resp-sharing-button__link:hover {
+	text-decoration: none;
+	color: #fff;
+	border: none;
+}
+
+.resp-sharing-button {
+	border-radius: 50px;
+	transition: 25ms ease-out;
+	padding: 0.5rem 0.75rem;
+}
+
+.resp-sharing-button__icon svg {
+	width: 1rem;
+	height: 1rem;
+	margin-right: 0.4rem;
+	vertical-align: top
+}
+
+/* Non solid icons get a stroke */
+.resp-sharing-button__icon {
+	stroke: #fff;
+	fill: none;
+}
+
+/* Solid icons get a fill */
+.resp-sharing-button__icon--solid {
+	fill: white;
+	stroke: none;
+}
+
+.resp-sharing-button--twitter {
+	background-color: #55acee;
+}
+
+.resp-sharing-button--twitter:hover, a:focus .resp-sharing-button--twitter {
+	background-color: #2795e9;
+}
+
+.resp-sharing-button--tumblr {
+	background-color: #35465C;
+}
+
+.resp-sharing-button--tumblr:hover, a:focus .resp-sharing-button--tumblr {
+	background-color: #222d3c;
+}
+
+.resp-sharing-button--twitter {
+	background-color: #55acee;
+	border-color: #55acee;
+}
+
+.resp-sharing-button--twitter:hover,
+.resp-sharing-button--twitter:active {
+	background-color: #2795e9;
+	border-color: #2795e9;
+}
+
+.resp-sharing-button--tumblr {
+	background-color: #35465C;
+	border-color: #35465C;
+}
+
+.resp-sharing-button--tumblr:hover,
+.resp-sharing-button--tumblr:active {
+	background-color: #222d3c;
+	border-color: #222d3c;
+}
