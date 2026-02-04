@@ -7,7 +7,7 @@ Original source:
   [Archive Of Our Own](https://archiveofourown.org/works/56749162)
   [pastebin](https://pastebin.com/raw/LcEmVpbj)
 
-Refactored (read CSS-STYLEGUIDE.md for more information), structured, and documented by Maikha
+Refactored (read sandbox.css for more information), structured, and documented by Maikha
 
 ## What's Included:
 - Semantic variable naming
